@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+/* don't let the window get too small */
+html {
+    min-width: 360px;
+}
+
+/* add flex to the webpage vertically */
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(to bottom right, rgb(0, 125, 255), rgb(125, 255, 255));
+}
+
+/* push footer to the bottom */
+.container {
+    flex: 1 0 auto;
+    margin: 50px auto;
+}
+
+/* center toolbar content */
+.mat-toolbar-row {
+    justify-content: center;
+}
+
+.invalid-icon {
+    color: red;
+}

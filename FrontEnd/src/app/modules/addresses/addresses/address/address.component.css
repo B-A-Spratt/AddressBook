@@ -1,0 +1,23 @@
+.valid-icon {
+    color: green;
+}
+
+.valid-border {
+    border-color: green;
+}
+
+.invalid-border {
+    border-color: red;
+}
+
+.material-icons {
+    vertical-align: middle;
+}
+
+.vertical-align {
+    vertical-align: middle;
+}
+
+.select:active, .select:focus {
+    outline: none;
+}

@@ -1,0 +1,23 @@
+<table class="table table-hover" id="addressTable">
+    <thead>
+        <tr>
+            <th *ngFor="let h of headElements">{{ h }}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let a of addressService.list">
+            <td (click)="populateForm(a)">{{ a.FirstName + ' ' + a.LastName }}</td>
+            <td (click)="populateForm(a)">{{ a.PhoneNumber }}</td>
+            <td (click)="populateForm(a)">{{ phoneTypeEnum[a.PhoneType] }}</td>
+            <td (click)="populateForm(a)">{{ groupEnum[a.Group] }}</td>
+            <td>
+                <i class="material-icons invalid-icon" (click)="onDelete(a.Id)">delete</i>
+            </td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <td colspan="5"></td>
+    </tfoot>
+</table>

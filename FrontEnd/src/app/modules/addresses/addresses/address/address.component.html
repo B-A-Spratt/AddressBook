@@ -1,0 +1,126 @@
+<form (ngSubmit)="onSubmit(addressForm)" #addressForm="ngForm" novalidate>
+    <input type="hidden" name="id" [value]="addressService.formData.Id">
+
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text bg-white">
+                    <i class="material-icons"
+                        [ngClass]="{ 'valid-icon': firstName.valid, 'invalid-icon': firstName.invalid && (firstName.touched || addressService.formData.Id > 0) }">
+                        account_circle
+                    </i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="firstName" #firstName="ngModel"
+                [(ngModel)]="addressService.formData.FirstName"
+                [ngClass]="{ 'valid-border': firstName.valid, 'invalid-border': firstName.invalid && (firstName.touched || addressService.formData.Id > 0) }"
+                placeholder="First Name *" required minlength="5">
+        </div>
+        <div *ngFor="let validation of addressValidationMessages.firstName">
+            <div class="alert alert-danger"
+                *ngIf="firstName.hasError(validation.type) && (firstName.touched || addressService.formData.Id > 0)">
+                {{ validation.message }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text bg-white">
+                    <i class="material-icons"
+                        [ngClass]="{ 'valid-icon': lastName.valid && (lastName.touched || addressService.formData.Id > 0), 'invalid-icon': lastName.invalid && lastName.touched }">
+                        supervisor_account
+                    </i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="lastName" #lastName="ngModel"
+                [(ngModel)]="addressService.formData.LastName"
+                [ngClass]="{ 'valid-border': lastName.valid && (lastName.touched || addressService.formData.Id > 0), 'invalid-border': lastName.invalid && lastName.touched }"
+                placeholder="Last Name" minlength="5">
+        </div>
+        <div *ngFor="let validation of addressValidationMessages.lastName">
+            <div class="alert alert-danger"
+                *ngIf="lastName.hasError(validation.type) && (lastName.touched || addressService.formData.Id > 0)">
+                {{ validation.message }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text bg-white">
+                    <i class="material-icons"
+                        [ngClass]="{ 'valid-icon': phoneNumber.valid, 'invalid-icon': phoneNumber.invalid && (phoneNumber.touched || addressService.formData.Id > 0) }">
+                        phone
+                    </i>
+                </div>
+            </div>
+            <input type="tel" class="form-control" name="phoneNumber" #phoneNumber="ngModel"
+                [(ngModel)]="addressService.formData.PhoneNumber"
+                [ngClass]="{ 'valid-border': phoneNumber.valid, 'invalid-border': phoneNumber.invalid && (phoneNumber.touched || addressService.formData.Id > 0) }"
+                placeholder="(123) 456-7890 *" required pattern="^\(\d{3}\) \d{3}-\d{4}$">
+        </div>
+        <div *ngFor="let validation of addressValidationMessages.phoneNumber">
+            <div class="alert alert-danger"
+                *ngIf="phoneNumber.hasError(validation.type) && (phoneNumber.touched || addressService.formData.Id > 0)">
+                {{ validation.message }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text bg-white">
+                    <i class="material-icons"
+                        [ngClass]="{ 'valid-icon': phoneType.value > 0, 'invalid-icon': phoneType.value == 0 && (phoneType.touched || phoneType.dirty) }">
+                        {{ phoneTypeIcon[phoneType.value] }}
+                    </i>
+                </div>
+            </div>
+            <select name="phoneType" id="phoneType" class="form-control" [(ngModel)]="addressService.formData.PhoneType"
+                [ngClass]="{ 'valid-border' : phoneType.value > 0, 'invalid-border': phoneType.value == 0 && (phoneType.touched || phoneType.dirty) }"
+                #phoneType="ngModel">
+                <option [value]="0" [disabled]="true" selected="selected">Phone Type *</option>
+                <option [value]="phoneTypeEnum[p]" *ngFor="let p of phoneTypeKeys">{{ p }}</option>
+            </select>
+        </div>
+        <div *ngFor="let validation of addressValidationMessages.phoneType">
+            <div class="alert alert-danger"
+                *ngIf="phoneType.hasError(validation.type) && (phoneType.touched || phoneType.dirty)">
+                {{ validation.message }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text bg-white">
+                    <i class="material-icons"
+                        [ngClass]="{ 'valid-icon': group.touched || addressService.formData.Id > 0 || group.dirty }">
+                        {{ groupIcon[group.value] }}
+                    </i>
+                </div>
+            </div>
+            <select name="group" id="group" class="form-control" [(ngModel)]="addressService.formData.Group"
+                [ngClass]="{ 'valid-border' : group.touched || addressService.formData.Id > 0 || group.dirty }"
+                #group="ngModel">
+                <option [value]="0" selected="selected">Group</option>
+                <option [value]="groupEnum[g]" *ngFor="let g of groupKeys">{{ g }}</option>
+            </select>
+        </div>
+    </div>
+
+    <p>* denotes a required field</p>
+
+    <div class="form-group">
+        <div class="form-group-button">
+            <button class="btn btn-success col-md-12" type="submit"
+                [disabled]="firstName.invalid || lastName.invalid || phoneNumber.invalid || phoneType.value == 0">
+                <i class="material-icons">save</i> <span class="vertical-align">Submit</span></button>
+        </div>
+    </div>
+</form>
